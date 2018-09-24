@@ -3,29 +3,63 @@ Treehouse Techdegree:
 FSJS project 2 - List Filter and Pagination
 ******************************************/
 
-// Add variables that store DOM elements you will need to reference and/or manipulate
-const $student = $(".student-item");
-const $list = $(".student.list");
+//Variables
+let students = document.querySelectorAll(".student-item");
+let details = document.querySelectorAll(".student-details");
 let pageNumber = 1;
-// Create a function to hide all of the items in the list excpet for the ten you want to show
-// Tip: Keep in mind that with a list of 54 studetns, the last page will only display four
-const showPage = (page, student) => {
-  const maxPage = page * 10 - 1;
-  const minPage = page * 10 - 10;
-  for (let i = 0; i < student.length; i++) {
-    student.hide();
-    if (i >= minPage && i <= maxPage) {
-      student.show();
+
+//showPage takes a pageNumber and displays the students, 10 per page
+showPage = (pageNumber, students) => {
+  const upper = pageNumber * 10 - 1;
+  const lower = pageNumber * 10 - 10;
+
+  for (let i = 0; i < students.length; i++) {
+    students[i].style.display = "none";
+    if (i >= lower && i <= upper) {
+      students[i].style.display = "block";
     }
   }
 };
 
-let anchorTags = '<a href="#">' + pageNumber + "</a>";
-let pageAnchorTags = $("li").append(anchorTags);
-$("ul").after(pageAnchorTags);
-showPage(pageNumber, $student);
-// Create and append the pagination links - Creating a function that can do this is a good approach
-const appendPageLinks = () => {};
+//Creating divs, with ul's in them, giving it a className to be able to add functionality to it
+let div = document.createElement("div");
+let ul = document.createElement("ul");
+let page = document.getElementsByClassName(".page");
 
-// Add functionality to the pagination buttons so that they show and hide the correct items
-// Tip: If you created a function above to show/hide list items, it could be helpful here
+div.className = "pagination";
+div.appendChild(ul);
+page.appendChild(div);
+
+//createPageLinks makes sure there are the correct number of pages
+createPageLinks = pageNumber => {
+  let li = document.createElement("li");
+
+  li.innerHTML = '<a href="#">' + pageNumber + "</a>";
+  ul.appendChild(li);
+
+  let links = ul.lastChild;
+
+  //Listens for clicks on which atag to show the correct page
+  links.addEventListener("click", () => {
+    showPage(pageNumber, students);
+    const anchorTags = document.querySelectorAll("a");
+
+    for (let i = 0; i < anchorTags.length; i++) {
+      anchorTags[i].classList.remove("active");
+      event.target.classList.add("active");
+    }
+  });
+};
+
+//
+appendPageLinks = students => {
+  let pages = Math.ceil(students.length / 10);
+
+  for (let i = 0; i < pages; i++) {
+    createPageLinks(pageNumber);
+    pageNumber += 1;
+  }
+};
+
+showPage(pageNumber, students);
+appendPageLinks(students);
