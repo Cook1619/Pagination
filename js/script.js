@@ -7,7 +7,11 @@ FSJS project 2 - List Filter and Pagination
 let students = document.querySelectorAll(".student-item");
 let details = document.querySelectorAll(".student-details");
 let pageNumber = 1;
-
+let div = document.createElement("div");
+let ul = document.createElement("ul");
+let page = document.getElementsByClassName("page");
+let input = document.createElement("input");
+let inputHeader = document.querySelectorAll(".page-header");
 //showPage takes a pageNumber and displays the students, 10 per page
 showPage = (pageNumber, students) => {
   const upper = pageNumber * 10 - 1;
@@ -22,9 +26,6 @@ showPage = (pageNumber, students) => {
 };
 
 //Creating divs, with ul's in them, giving it a className to be able to add functionality to it
-let div = document.createElement("div");
-let ul = document.createElement("ul");
-let page = document.getElementsByClassName(".page");
 
 div.className = "pagination";
 div.appendChild(ul);
@@ -61,6 +62,9 @@ appendPageLinks = students => {
     pageNumber += 1;
   }
 };
+
+//Working on getting the input to show up and filter
+inputHeader.appendChild(input);
 
 showPage(pageNumber, students);
 appendPageLinks(students);
