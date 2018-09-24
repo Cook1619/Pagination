@@ -29,6 +29,7 @@ let page = document.getElementsByClassName(".page");
 div.className = "pagination";
 div.appendChild(ul);
 page.appendChild(div);
+document.body.appendChild(div);
 
 //createPageLinks makes sure there are the correct number of pages
 createPageLinks = pageNumber => {
