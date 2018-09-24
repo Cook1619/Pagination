@@ -9,9 +9,9 @@ let details = document.querySelectorAll(".student-details");
 let pageNumber = 1;
 let div = document.createElement("div");
 let ul = document.createElement("ul");
-let page = document.getElementsByClassName("page");
+let page = document.getElementsByClassName("page")[0];
 let input = document.createElement("input");
-let inputHeader = document.querySelectorAll(".page-header");
+let inputHeader = document.querySelectorAll(".page-header")[0];
 //showPage takes a pageNumber and displays the students, 10 per page
 showPage = (pageNumber, students) => {
   const upper = pageNumber * 10 - 1;
